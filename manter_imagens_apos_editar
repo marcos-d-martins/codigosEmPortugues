@@ -1,0 +1,28 @@
+<?php
+
+/*  PAREI AQUI: 10 DE AGOSTO 2021. 4 da manhã. 
+    ALTEREI O ID DA CONSULTA $trazerGaleriaDepois para id da tabela publicacoes 
+     ( ao invés de trazer da tabela fotos)
+   */
+    $trazerGaleriaDepois = new Ler();
+    $trazerGaleriaDepois->executarLeitura( 'publicacao', "WHERE id = :id", "id={$id}" );
+    var_dump($trazerGaleriaDepois);
+
+    $contador = 0;
+    if(  $trazerGaleriaDepois->resultado()  ):
+        foreach ( $trazerGaleriaDepois AS $g ) :
+            $contador++;
+    ?>
+    <div class="galeria">
+        <?= Verificacao::imagens($g['imagem'], $g['id'].'-'.$contador, 200, 185); ?>
+        <a href="editar_publicacao.php?postid=<?= $id*9378*825*14; ?>&imagemGal=<?= $g['id'];?>" class="imagem j_delete">
+            <img src="icone/cancel.png" alt="excluir" title="<?= $g['id']; ?>" class="galeria-botao-excluir">                            
+        </a>
+    </div>
+    <?php
+
+        Verificacao::imagens($g['foto'], $g['id'].$g['data_galeria'], 200, 200);
+
+        endforeach;
+    endif;
+    ?>
