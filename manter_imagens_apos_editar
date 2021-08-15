@@ -25,4 +25,17 @@
 
         endforeach;
     endif;
+    
+    
+    
+    if( isset($_FILES['imagem']) && $publicacao == ""):
+    $dadosDoBanco = new Ler();
+    $dadosDoBanco->executarLeitura('publicacao', "WHERE id = :id", "id={$id}");
+
+    if( $dadosDoBanco->resultado() ) :
+        $novaCapa = $dadosDoBanco->resultado()[0]['imagem'];
+        var_dump($novaCapa);
+    endif;
+
+endif;
     ?>
